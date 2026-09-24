@@ -12,10 +12,14 @@ export default defineConfig({
   projects: [{ name: 'mobile-chrome', use: { ...devices['Pixel 5'] } }],
   webServer: {
     // CI builds in its own step (with VITE_E2E=1) so this only serves; locally it builds first.
-    command: process.env.CI ? 'pnpm preview' : 'VITE_E2E=1 pnpm build && pnpm preview',
+    // The vite binary is called directly: through the pnpm wrapper the server outlives the test run on Linux and the step hangs.
+    command: process.env.CI
+      ? './node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 --strictPort'
+      : 'VITE_E2E=1 pnpm build && ./node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 --strictPort',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    gracefulShutdown: { signal: 'SIGTERM', timeout: 5000 },
     stdout: 'pipe',
     stderr: 'pipe',
   },
