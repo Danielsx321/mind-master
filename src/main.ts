@@ -8,7 +8,6 @@ import { playScreen } from './screens/play';
 import { resultsScreen } from './screens/results';
 import { scoresScreen } from './screens/scores';
 import { buildShell } from './ui/shell';
-import { onInstallChange } from './app/install';
 
 const root = document.getElementById('app');
 if (!root) throw new Error('#app missing');
@@ -29,11 +28,6 @@ const router = new Router(shell.stage, (route: Route): Screen => {
 });
 
 router.go({ name: 'home' });
-
-// Re-render home when the install prompt becomes available so the button appears without a reload.
-onInstallChange(() => {
-  if (router.currentRoute.name === 'home') router.go({ name: 'home' });
-});
 
 // Unlock audio on the first gesture anywhere, and give every button a click.
 document.addEventListener(

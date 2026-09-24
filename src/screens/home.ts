@@ -5,7 +5,7 @@ import { store } from '../app/store';
 import { games } from '../games/registry';
 import { button, h, icon } from '../ui/components';
 import type { Shell } from '../ui/shell';
-import { installState, promptInstall } from '../app/install';
+import { installState, onInstallChange, promptInstall } from '../app/install';
 
 const MARK = [1, 0, 1, 0, 1, 0, 1, 0, 1];
 
@@ -35,19 +35,24 @@ export function homeScreen(router: Router, shell: Shell): Screen {
 
   const foot = h('div', { class: 'home-foot' }, button('High scores', () => router.go({ name: 'scores' }), { icon: 'trophy', id: 'scoresBtn' }));
 
-  const install = installState();
-  if (install === 'prompt') {
-    foot.prepend(
-      button('Install the app', async () => {
+  // The install button slots in when Chrome says the app is installable, without re-rendering the screen.
+  function paintInstall(): void {
+    foot.querySelector('#installBtn')?.remove();
+    foot.querySelector('.install-hint')?.remove();
+    const state = installState();
+    if (state === 'prompt') {
+      const installBtn = button('Install the app', async () => {
         const accepted = await promptInstall();
         if (!accepted) store.dismissInstall();
         installBtn.remove();
-      }, { variant: 'ghost', icon: 'install', id: 'installBtn' }),
-    );
-  } else if (install === 'ios-hint') {
-    foot.append(h('p', { class: 'install-hint' }, 'On iPhone: tap Share, then "Add to Home Screen" to keep it offline.'));
+      }, { variant: 'ghost', icon: 'install', id: 'installBtn' });
+      foot.prepend(installBtn);
+    } else if (state === 'ios-hint') {
+      foot.append(h('p', { class: 'install-hint' }, 'On iPhone: tap Share, then "Add to Home Screen" to keep it offline.'));
+    }
   }
-  const installBtn = foot.querySelector('#installBtn') as HTMLElement | null ?? h('span');
+  paintInstall();
+  const unsubscribe = onInstallChange(paintInstall);
 
   const el = h(
     'div',
@@ -57,5 +62,10 @@ export function homeScreen(router: Router, shell: Shell): Screen {
     foot,
   );
 
-  return { el, destroy() {} };
+  return {
+    el,
+    destroy() {
+      unsubscribe();
+    },
+  };
 }

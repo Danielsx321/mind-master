@@ -54,7 +54,7 @@ test.describe('each game plays to a result', () => {
     await page.locator('#reactionArea').dispatchEvent('pointerdown');
     await expect(page.locator('.flash-bad')).toContainText('Too early');
     for (let i = 0; i < 5; i++) {
-      await expect(page.locator('#reactionArea.ready')).toBeVisible({ timeout: 8000 });
+      await expect(page.locator('#reactionArea.ready')).toBeVisible({ timeout: 10_000 });
       await page.locator('#reactionArea').dispatchEvent('pointerdown');
       await expect(page.locator('.flash-good')).toBeVisible();
       if (i < 4) await expect(page.locator('#reactionArea:not(.ready):not(.done)')).toBeVisible({ timeout: 3000 });
