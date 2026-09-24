@@ -41,7 +41,7 @@ export function scoresScreen(router: Router, shell: Shell): Screen {
         'div',
         { class: 'score-row', style: `--tint:var(${g.tint})` },
         icon(g.icon),
-        h('div', {}, h('strong', {}, g.name), h('div', { class: 'when' }, `${ago(r.at)} · ${r.rounds} ${g.roundCap ? 'taps' : 'rounds'}${r.extra?.avgMs ? ` · avg ${r.extra.avgMs} ms` : ''}`)),
+        h('div', {}, h('strong', {}, g.name), h('div', { class: 'when' }, `${ago(r.at)} · ${r.rounds} ${g.roundCap ? (r.rounds === 1 ? 'tap' : 'taps') : r.rounds === 1 ? 'round' : 'rounds'}${r.extra?.avgMs ? ` · avg ${r.extra.avgMs} ms` : ''}`)),
         h('span', { class: 'val' }, String(r.score)),
       ),
     );
