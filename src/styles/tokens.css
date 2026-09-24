@@ -1,0 +1,70 @@
+:root {
+  color-scheme: dark;
+
+  --bg-0: #070d18;
+  --bg-1: #0f1b2e;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --surface-solid: #16233a;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.22);
+
+  --text: #eef3f9;
+  --text-muted: #a9b7c8;
+  --text-dim: #6f7f93;
+
+  --accent: #38bdf8;
+  --accent-ink: #062033;
+  --good: #4ade80;
+  --bad: #f87171;
+  --warn: #fbbf24;
+
+  /* one hue per game, used for icon tint and the card's top edge */
+  --g-memory: #38bdf8;
+  --g-sequence: #a78bfa;
+  --g-pattern: #4ade80;
+  --g-reaction: #fbbf24;
+  --g-different: #fb7185;
+
+  --fs-1: 13px;
+  --fs-2: 15px;
+  --fs-3: 17px;
+  --fs-4: 22px;
+  --fs-5: 28px;
+  --fs-6: 40px;
+  --fs-7: 64px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  --r-1: 12px;
+  --r-2: 18px;
+  --r-3: 24px;
+
+  --shadow-1: 0 6px 18px rgba(0, 0, 0, 0.28);
+  --shadow-2: 0 16px 40px rgba(0, 0, 0, 0.4);
+
+  --t-fast: 120ms;
+  --t-base: 220ms;
+  --t-slow: 400ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --bar-h: 56px;
+  --max-w: 560px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 0ms;
+    --t-base: 0ms;
+    --t-slow: 0ms;
+  }
+}

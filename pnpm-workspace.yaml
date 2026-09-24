@@ -1,0 +1,5 @@
+# Single-package repo. pnpm 11+ reads build-script approvals from here.
+# esbuild ships a prebuilt binary (Vite needs it). sharp is only used by scripts/icons.mjs to render the PNG icons.
+allowBuilds:
+  esbuild: true
+  sharp: true
