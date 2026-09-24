@@ -20,7 +20,7 @@ export function homeScreen(router: Router, shell: Shell): Screen {
     const best = store.getBest(game.id);
     const cardBtn = h(
       'button',
-      { type: 'button', class: 'game-card', id: `play-${game.id}`, style: `--tint:var(${game.tint})`, 'aria-label': `${game.name}. ${game.description} Best ${best}` },
+      { type: 'button', class: 'game-card', id: `play-${game.id}`, style: `--tint:var(${game.tint})` },
       h('span', { class: 'game-icon' }, icon(game.icon)),
       h('span', {}, h('h3', {}, game.name), h('p', {}, game.description)),
       h('span', { class: 'game-best' }, h('small', {}, 'Best'), String(best)),
